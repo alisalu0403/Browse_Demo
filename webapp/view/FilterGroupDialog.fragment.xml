@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		confirm="handleConfirm">
+		<filterItems>
+			<ViewSettingsFilterItem text="Orders" key="Orders" multiSelect="false">
+				<items>
+					<ViewSettingsItem text="Only Shipped Orders" key="shiporder" />
+					<ViewSettingsItem text="Only Orders without Shipment" key="shipment" />
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+		<groupItems>
+			<ViewSettingsItem text="Group by Customer" key="CompanyName" />
+			<ViewSettingsItem text="Group by Order Period" key="OrderDate" />
+			<ViewSettingsItem text="Group by Shipped Period" key="ShippedDate" />
+		</groupItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

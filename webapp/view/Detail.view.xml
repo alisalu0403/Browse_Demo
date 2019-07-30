@@ -1,0 +1,184 @@
+<mvc:View
+	controllerName="sap.ui.demo.bulletinboard.controller.Detail"
+	xmlns="sap.m"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+
+	<semantic:SemanticPage
+		id="detailPage"
+		busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+		<semantic:titleHeading>
+			<Title
+				text="{
+						parts: ['i18n>OrderTitle','OrderID']
+						   }"
+				level="H2"/>
+
+		</semantic:titleHeading>
+		
+		<semantic:headerContent>
+			<l:HorizontalLayout allowWrapping="true">
+				<l:VerticalLayout class="sapUiMediumMarginEnd" >
+					<ObjectAttribute title="Customer" text="{Customer/CompanyName}"/>
+					<ObjectAttribute title="Ordered"
+									text="{
+										path: 'OrderDate',
+										type: 'sap.ui.model.type.Date'
+									
+									 }"/>
+					<ObjectAttribute title="Shipped"
+									text="{
+										path: 'ShippedDate',
+										type: 'sap.ui.model.type.Date'
+									 }"/>
+				 </l:VerticalLayout>
+				 <l:VerticalLayout>
+			 		<ObjectAttribute title="Price"/>
+					<ObjectNumber number="{
+										path: 'detailView>/sTotalPrice',
+										formatter: '.formatter.numberUnit'
+									}"
+									unit="EUR"/>
+				 </l:VerticalLayout>
+			 </l:HorizontalLayout>
+		</semantic:headerContent>
+		
+		<semantic:content>
+			<l:VerticalLayout>
+			
+				<IconTabBar id="iconTabBar"
+							headerBackgroundDesign="Transparent"
+	                		expanded="true">
+		            <items>
+	            		<IconTabFilter icon="sap-icon://shipping-status" key="shipping" id="ship">
+		                  	<f:SimpleForm id="ShippingInfo"
+	                					title="Shipping Address">
+								<f:content>
+									<Label text="Name" />
+									<Text text="{ShipName}" />
+									<Label text="Street" />
+									<Text text="{ShipAddress}" />
+									<Label text="ZIP Code / City" />
+									<Text text="{ShipPostalCode} {ShipCity}" />
+									<Label text="Region" />
+									<Text text="{ShipRegion}" />
+									<Label text="Country" />
+									<Text text="{ShipCountry}" />
+								</f:content>
+							</f:SimpleForm>
+		                </IconTabFilter>
+		               
+		               <IconTabFilter icon="sap-icon://employee" key="employee" id="employee">
+		               		<f:SimpleForm id="Processor"
+	                					title="Processor Information">
+								<f:content>
+									<core:Title text="Details"/>
+									<Label text="Name" />
+									<Text text="{Employee/FirstName} {Employee/LastName}" />
+									<Label text="Employee ID" />
+									<Text text="{Employee/EmployeeID}"/>
+									<Label text="Job Title" />
+									<Text text="{Employee/Title}" />
+									<Label text="Phone" />
+									<Link text="{Employee/HomePhone}" press="onPhonePress"/>
+								</f:content>
+								<f:content>
+									<core:Title text="Picture"/>
+									<Image src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" height = "80px" />
+								</f:content>
+							</f:SimpleForm>
+	               			
+		               </IconTabFilter>
+		            </items>
+	        	</IconTabBar>
+	         
+         
+         <!-- Line Items -->
+	         	<Table
+						id="listTable"
+						width="auto"
+						class="sapUiSmallMarginTop"
+						items="{Order_Details}"
+						updateFinished=".onUpdateFinished">
+					<headerToolbar>
+				
+						<Toolbar>
+							<Title id="tableHeader" text="{detailView>/lineItemTitle}"/>
+						</Toolbar>			
+
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="Product" />
+						</Column>
+						<Column hAlign="End">
+							<Text text="Unit Price" />
+						</Column>
+						<Column hAlign="End">
+							<Text text="Quantity"/>
+						</Column>
+						<Column hAlign="End">
+							<Text text="Total"/>
+						</Column>
+						
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="{Product/ProductName}"
+								                  text="{Product/ProductID}"/>
+								<ObjectNumber
+										number="{
+											path: 'UnitPrice',
+											formatter: '.formatter.numberUnit'
+										}"
+										unit="EUR"/>
+								<ObjectAttribute
+										text="{Quantity}"/>
+								<ObjectNumber
+										number="{
+										parts:[
+										{path: 'UnitPrice'},
+										{path: 'Quantity'}],
+										formatter: '.formatter.calculatePriceTotal'
+										}"
+										unit="EUR"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+         
+           </l:VerticalLayout>
+
+		</semantic:content>
+		
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:closeAction>
+		
+			<semantic:CloseAction
+						id="closeColumn"
+						press=".onCloseDetailPress"/>
+			</semantic:closeAction>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction
+					id="enterFullScreen"
+					visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+					press=".toggleFullScreen"/>
+			</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+		<semantic:ExitFullScreenAction
+					id="exitFullScreen"
+					visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+					press=".toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>

@@ -1,0 +1,111 @@
+<mvc:View
+	controllerName="sap.ui.demo.bulletinboard.controller.Master"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:core="sap.ui.core">
+	<semantic:SemanticPage>
+		<semantic:titleHeading>
+			<Title text="{masterView>/masterTableTitle}" />
+		</semantic:titleHeading>
+		<semantic:content>
+			<List
+				id="list"
+				width="auto"
+				class="sapUiResponsiveMargin"
+				items="{
+					path: '/Orders',
+					parameters: {expand: 'Customer'},
+					sorter: {
+						path: 'OrderID',
+						descending: true
+						}
+					}"
+				growing="true"
+				growingThreshold="10"
+				updateFinished="onUpdateFinished"
+				noDataText = "{masterView>/tableNoDataText}"
+				selectionChange="onPress"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}">
+				<headerToolbar>
+					<OverflowToolbar>
+						<SearchField 
+						    id ="searchDescription"
+						    placeholder="Search"
+						    tooltip = "Enter an order name or a part of it."
+						    search=".onSearch"
+						    showRefreshButton = "true">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									maxWidth="300px"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						
+						<ToolbarSpacer />
+						
+						<OverflowToolbarButton icon="sap-icon://filter" type="Transparent" id="filterButton" press="filterPress"/>
+						<OverflowToolbarButton icon="sap-icon://group-2" type="Transparent" id="groupButton" press="groupPress"/>
+						
+					</OverflowToolbar>
+				</headerToolbar>
+				<infoToolbar>
+					<OverflowToolbar id="vsdFilterBar" visible="false">
+						<Text id="vsdFilterLabel" />
+					</OverflowToolbar>
+				</infoToolbar>
+				<items>
+					<ObjectListItem
+						type="Navigation" 
+						press="onPress"
+						title="{
+						parts: ['i18n>OrderTitle','OrderID']
+						   }"
+					   	number ="{
+								path: 'OrderDate',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: {
+									style: 'short'
+								}
+							 }"
+						>
+						<firstStatus>
+							<ObjectStatus
+								state="{
+									parts: [
+										{path: 'RequiredDate'},
+										{path: 'ShippedDate'},
+										{path: 'OrderID'}
+									],
+									formatter:'.formatter.deliveryState'
+								}"
+								text="{
+									parts: [
+										{path: 'RequiredDate'},
+										{path: 'ShippedDate'},
+										{path: 'OrderID'}
+									],
+									formatter:'.formatter.deliveryText'
+								}">
+								
+							</ObjectStatus>
+						</firstStatus>
+						<attributes>
+								<ObjectAttribute id="customername" text="{Customer/CompanyName}"/>
+								<ObjectAttribute id="shipdate"  title="{i18n>ShipDate}"
+								text="{
+									path: 'ShippedDate',
+									type: 'sap.ui.model.type.Date'
+								 }"/>
+						</attributes>
+						
+					</ObjectListItem>
+				</items>
+			</List>
+		</semantic:content>
+	
+
+			
+
+	</semantic:SemanticPage>
+</mvc:View>
