@@ -63,11 +63,6 @@ Label, Text, TextArea, Button, MessageToast, Log
 				oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
 			});
 			
-			this.getView().addEventDelegate({
-				onBeforeFirstShow: function () {
-					this.getOwnerComponent().oListSelector.setBoundMasterList(oTable);
-				}.bind(this)
-			});
 			this.getRouter().getRoute("master").attachPatternMatched(this._onMasterMatched, this);
 			
 			this.mGroupFunctions = {
