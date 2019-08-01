@@ -23,21 +23,21 @@
 		<semantic:headerContent>
 			<l:HorizontalLayout allowWrapping="true">
 				<l:VerticalLayout class="sapUiMediumMarginEnd" >
-					<ObjectAttribute title="Customer" text="{Customer/CompanyName}"/>
-					<ObjectAttribute title="Ordered"
+					<ObjectAttribute title="{i18n>headCustomer}" text="{Customer/CompanyName}"/>
+					<ObjectAttribute title="{i18n>headOrdered}"
 									text="{
 										path: 'OrderDate',
 										type: 'sap.ui.model.type.Date'
 									
 									 }"/>
-					<ObjectAttribute title="Shipped"
+					<ObjectAttribute title="{i18n>headShipped}"
 									text="{
 										path: 'ShippedDate',
 										type: 'sap.ui.model.type.Date'
 									 }"/>
 				 </l:VerticalLayout>
 				 <l:VerticalLayout>
-			 		<ObjectAttribute title="Price"/>
+			 		<ObjectAttribute title="{i18n>headPrice}"/>
 					<ObjectNumber number="{
 										path: 'detailView>/sTotalPrice',
 										formatter: '.formatter.numberUnit'
@@ -56,17 +56,17 @@
 		            <items>
 	            		<IconTabFilter icon="sap-icon://shipping-status" key="shipping" id="ship">
 		                  	<f:SimpleForm id="ShippingInfo"
-	                					title="Shipping Address">
+	                					title="{i18n>shippingTitle}">
 								<f:content>
-									<Label text="Name" />
+									<Label text="{i18n>shippingName}" />
 									<Text text="{ShipName}" />
-									<Label text="Street" />
+									<Label text="{i18n>shippingStreet}" />
 									<Text text="{ShipAddress}" />
-									<Label text="ZIP Code / City" />
+									<Label text="{i18n>shippingCity}" />
 									<Text text="{ShipPostalCode} {ShipCity}" />
-									<Label text="Region" />
+									<Label text="{i18n>shippingRegion}" />
 									<Text text="{ShipRegion}" />
-									<Label text="Country" />
+									<Label text="{i18n>shippingCountry}" />
 									<Text text="{ShipCountry}" />
 								</f:content>
 							</f:SimpleForm>
@@ -74,20 +74,20 @@
 		               
 		               <IconTabFilter icon="sap-icon://employee" key="employee" id="employee">
 		               		<f:SimpleForm id="Processor"
-	                					title="Processor Information">
+	                					title="{i18n>processorTitle}">
 								<f:content>
-									<core:Title text="Details"/>
-									<Label text="Name" />
+									<core:Title text="{i18n>processorDetail}"/>
+									<Label text="{i18n>processorName}" />
 									<Text text="{Employee/FirstName} {Employee/LastName}" />
-									<Label text="Employee ID" />
+									<Label text="{i18n>processorEmployeeId}" />
 									<Text text="{Employee/EmployeeID}"/>
-									<Label text="Job Title" />
+									<Label text="{i18n>processorJobTitle}" />
 									<Text text="{Employee/Title}" />
-									<Label text="Phone" />
+									<Label text="{i18n>processorPhone}" />
 									<Link text="{Employee/HomePhone}" press="onPhonePress"/>
 								</f:content>
 								<f:content>
-									<core:Title text="Picture"/>
+									<core:Title text="{i18n>processorPicture}"/>
 									<Image src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" height = "80px" />
 								</f:content>
 							</f:SimpleForm>
@@ -113,16 +113,16 @@
 					</headerToolbar>
 					<columns>
 						<Column>
-							<Text text="Product" />
+							<Text text="{i18n>detailProduct}" />
 						</Column>
 						<Column hAlign="End">
-							<Text text="Unit Price" />
+							<Text text="{i18n>detailPrice}" />
 						</Column>
 						<Column hAlign="End">
-							<Text text="Quantity"/>
+							<Text text="{i18n>detailQuantity}"/>
 						</Column>
 						<Column hAlign="End">
-							<Text text="Total"/>
+							<Text text="{i18n>detailTotal}"/>
 						</Column>
 						
 					</columns>

@@ -10,15 +10,17 @@ sap.ui.define([
 	// 1. Navigate to the detail page and should see the Order title
 	opaTest("Should see the post page when a user clicks on an entry of the list", function (Given, When, Then) {
 		
-		var options = {delay:0, hash:"/Orders/7991"};
+		
 		// Arrangements
-		Given.iStartMyApp(options);
-		//Given.iStartMyApp();
+		// var options = {delay:0, hash:"/Orders/7991"};
+		// Given.iStartMyApp(options);
+		
+		
+		Given.iStartMyApp();
 
 		//Actions
-		//When.onTheMasterPage.iPressOnTheItemWithTheID("7991");
+		When.onTheMasterPage.iPressOnTheItemWithTheID("7991");
 
-		//When.onTheDetailPage.iPressOnFullScreen();
 		// Assertions
 		Then.onTheDetailPage.theTitleShouldDisplayTheName("Order 7991");
 		

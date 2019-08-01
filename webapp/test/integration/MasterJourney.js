@@ -56,7 +56,7 @@ sap.ui.define([
 	});
 	
 	//6. filter the list without shipped orders
-	opaTest("Should be able to filter the list with ship orders", function(Given, When, Then){
+	opaTest("Should be able to filter the list without ship orders", function(Given, When, Then){
 		//Actions
 		When.onTheMasterPage.iFilterShippedOrders("filterButton", "Orders", "Only Orders without Shipment");
 		

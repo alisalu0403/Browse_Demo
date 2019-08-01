@@ -1,12 +1,11 @@
 sap.ui.define([
-	'sap/ui/test/Opa5',
-	'sap/ui/test/matchers/Properties',
-	'sap/ui/test/actions/Press',
-	'sap/ui/test/actions/EnterText',
-	'sap/ui/test/matchers/AggregationLengthEquals',
-	'sap/ui/test/matchers/I18NText',
+	"sap/ui/test/Opa5",
+	"sap/ui/test/matchers/Properties",
+	"sap/ui/test/actions/Press",
+	"sap/ui/test/matchers/AggregationLengthEquals",
+	"sap/ui/test/matchers/I18NText",
 	"sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Properties, Press, EnterText, AggregationLengthEquals, I18NText, PropertyStrictEquals) {
+], function (Opa5, Properties, Press, AggregationLengthEquals, I18NText, PropertyStrictEquals) {
 		"use strict";
 		var sViewName = "Detail";
 		Opa5.createPageObjects({

@@ -1,12 +1,10 @@
 sap.ui.define([
-		'sap/ui/test/Opa5',
-		'sap/ui/test/matchers/AggregationLengthEquals',
-		'sap/ui/test/matchers/I18NText',
-		'sap/ui/test/actions/Press',
-		'sap/ui/test/matchers/BindingPath',
-		'sap/ui/test/actions/EnterText',
-		"sap/ui/test/matchers/Ancestor",
-		"sap/ui/test/matchers/Properties",
+		"sap/ui/test/Opa5",
+		"sap/ui/test/matchers/AggregationLengthEquals",
+		"sap/ui/test/matchers/I18NText",
+		"sap/ui/test/actions/Press",
+		"sap/ui/test/matchers/BindingPath",
+		"sap/ui/test/actions/EnterText",
 		"sap/ui/test/matchers/PropertyStrictEquals"
 	],
 	function (Opa5,
@@ -15,8 +13,6 @@ sap.ui.define([
 			  Press,
 			  BindingPath,
 			  EnterText,
-			  Ancestor,
-			  Properties,
 			  PropertyStrictEquals) {
 		"use strict";
 
@@ -35,6 +31,7 @@ sap.ui.define([
 							errorMessage: "The list does not have a trigger."
 						});
 					} ,
+					
 					iSearchFor: function (sSearchString) {
 						return this.waitFor({
 							id: "searchDescription",
@@ -44,15 +41,15 @@ sap.ui.define([
 							}),
 							errorMessage: "SearchTitle was not found."
 						});
-					}  ,
+					} ,
+					
 					iResetTheSearchField: function(){
-						var fnClearSearchField = function(oSearchField) {
-							oSearchField.clear();
-						};
 						return this.waitFor({
 							id : "searchDescription",
 							viewName : sViewName,
-							actions: fnClearSearchField,
+							actions: function(oSearchField) {
+								oSearchField.clear();
+							},
 							errorMessage : "Failed to find search field in Master view."
 						});
 						
@@ -67,19 +64,16 @@ sap.ui.define([
 								this.waitFor({
 									controlType: "sap.m.StandardListItem",
 									matchers: new PropertyStrictEquals({name: "title", value: sItem}),
-									searchOpenDialogs: true,
 									actions: new Press(),
 									success: function () {
 										this.waitFor({
 											controlType: "sap.m.StandardListItem",
 											matchers : new PropertyStrictEquals({name: "title", value: sOption}),
-											searchOpenDialogs: true,
 											actions : new Press(),
 											success: function () {
 												this.waitFor({
 													controlType: "sap.m.Button",
 													matchers: new PropertyStrictEquals({name: "text", value: "OK"}),
-													searchOpenDialogs: true,
 													actions: new Press(),
 													errorMessage: "The ok button in the dialog was not found and could not be pressed"
 												});
@@ -103,13 +97,11 @@ sap.ui.define([
 								this.waitFor({
 									controlType: "sap.m.Button",
 									matchers: new PropertyStrictEquals({name: "text", value: "Reset"}),
-									searchOpenDialogs: true,
 									actions: new Press(),
 									success: function(){
 										this.waitFor({
 											controlType: "sap.m.Button",
 											matchers: new PropertyStrictEquals({name: "text", value: "OK"}),
-											searchOpenDialogs: true,
 											actions: new Press(),
 											errorMessage: "The ok button in the dialog was not found and could not be pressed"
 											
@@ -133,13 +125,11 @@ sap.ui.define([
 								this.waitFor({
 									controlType: "sap.m.StandardListItem",
 									matchers: new PropertyStrictEquals({name: "title", value: sort}),
-									searchOpenDialogs: true,
 									actions: new Press(),
 									success: function(){
 										this.waitFor({
 											controlType: "sap.m.Button",
 											matchers: new PropertyStrictEquals({name: "text", value: "OK"}),
-											searchOpenDialogs: true,
 											actions: new Press(),
 											errorMessage: "The ok button in the dialog was not found and could not be pressed"
 											
@@ -160,7 +150,7 @@ sap.ui.define([
 							controlType: "sap.m.ObjectListItem",
 							viewName: sViewName,
 							matchers:  new BindingPath({
-								path: "/Orders('" + sId + "')"
+								path: "/Orders(" + sId + ")"
 							}),
 							actions: new Press(),
 							errorMessage: "No list item with the id " + sId + " was found."
@@ -234,6 +224,7 @@ sap.ui.define([
 							errorMessage: "The list cannot be filtered successfully."
 						});
 					},
+					
 					theListShouldBeFilteredOnShippedOrders : function () {
 						function fnCheckFilter (oList){
 							var fnIsFiltered = function (oElement) {

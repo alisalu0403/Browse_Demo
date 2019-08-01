@@ -24,17 +24,18 @@
 				growing="true"
 				growingThreshold="10"
 				updateFinished="onUpdateFinished"
-				noDataText = "{masterView>/tableNoDataText}"
+				noDataText = "{i18n>tableNoDataText}"
 				selectionChange="onPress"
 				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}">
 				<headerToolbar>
 					<OverflowToolbar>
 						<SearchField 
 						    id ="searchDescription"
-						    placeholder="Search"
-						    tooltip = "Enter an order name or a part of it."
+						    placeholder="{i18n>searchPlaceHolder}"
+						    tooltip = "{i18n>searchTooltip}"
 						    search=".onSearch"
 						    showRefreshButton = "true">
+							<!-- make the search field never overflow -->
 							<layoutData>
 								<OverflowToolbarLayoutData
 									maxWidth="300px"
@@ -50,14 +51,13 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<infoToolbar>
-					<OverflowToolbar id="vsdFilterBar" visible="false">
-						<Text id="vsdFilterLabel" />
+					<OverflowToolbar id="FilterBar" visible="false">
+						<Text id="FilterLabel" />
 					</OverflowToolbar>
 				</infoToolbar>
 				<items>
 					<ObjectListItem
 						type="Navigation" 
-						press="onPress"
 						title="{
 						parts: ['i18n>OrderTitle','OrderID']
 						   }"

@@ -1,24 +1,13 @@
 sap.ui.define([
-	'./BaseController',
-	'sap/ui/model/json/JSONModel',
-	'../model/formatter',
-	 'sap/m/library',
+	"./BaseController",
+	"sap/ui/model/json/JSONModel",
+	"../model/formatter",
 	 "sap/ui/model/Filter",
  	"sap/ui/model/FilterOperator",
 	"sap/ui/model/Sorter",
-	"sap/m/Dialog",
-	"sap/m/Label",
-	"sap/m/Text",
-	"sap/m/TextArea",
-	"sap/m/Button",
-	"sap/m/MessageToast",
-	"sap/base/Log",
-	"sap/viz/ui5/data/FlattenedDataset",
 	"sap/ui/core/format/DateFormat",
 	"sap/ui/Device"
-], function (BaseController, JSONModel, formatter, mobileLibrary, Filter, FilterOperator, Sorter, Dialog,
-Label, Text, TextArea, Button, MessageToast, Log
-,FlattenedDataset, DateFormat, Device) {
+], function (BaseController, JSONModel, formatter, Filter, FilterOperator, Sorter, DateFormat, Device) {
 	"use strict";
 	//var aTableSearchState;
 
@@ -47,7 +36,6 @@ Label, Text, TextArea, Button, MessageToast, Log
 
 			// Model used to manipulate control states
 			oViewModel = new JSONModel({
-				tableNoDataText: this.getResourceBundle().getText("tableNoDataText"),
 				masterTableTitle: this.getResourceBundle().getText("masterTableTitle"),
 				shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailSubject"),
 				shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailMessage", [window.location.href]),
@@ -152,18 +140,8 @@ Label, Text, TextArea, Button, MessageToast, Log
 			this.getModel("masterView").setProperty("/masterTableTitle", sTitle);
 		},
 
-		/* =========================================================== */
-		/* internal methods                                            */
-		/* =========================================================== */
-
-		/**
-		 * Sets the item count on the worklist view header
-		 * @param {int} iTotalItems the total number of items in the table
-		 * @private
-		 */
 		_updateListItemCount: function (iTotalItems) {
 			var sTitle;
-			// only update the counter if the length is final
 			if (this._oTable.getBinding("items").isLengthFinal()) {
 				sTitle = this.getResourceBundle().getText("masterTableTitleCount", [iTotalItems]);
 				this.oViewModel.setProperty("/masterTableTitle", sTitle);
@@ -176,7 +154,6 @@ Label, Text, TextArea, Button, MessageToast, Log
 			var sQuery = oEvent.getParameter("query");
 
 			if (sQuery && sQuery.length > 0) {
-			//	if(oEvent.mParameters.id.endsWith("searchTitle"))
 				this.filterState.aSearch.push(new Filter("CustomerName", FilterOperator.Contains, sQuery));
 			}
 			else{
@@ -186,14 +163,10 @@ Label, Text, TextArea, Button, MessageToast, Log
 			
 		},
 		_applySearch: function() {
-			var oTable = this.byId("list"),
-				oViewModel = this.getModel("mastertView");
+			var oTable = this.byId("list");
 			var aTableSearchState = this.filterState.aSearch.concat(this.filterState.aFilter);
 			oTable.getBinding("items").filter(aTableSearchState);
-			// // changes the noDataText of the list in case there are no filter results
-			// if (aTableSearchState.length === 0) {
-			// 	oViewModel.setProperty("/tableNoDataText", "No matching order found"); 
-			// }
+		
 		},
 		
 		// filter and group dialog
@@ -208,23 +181,25 @@ Label, Text, TextArea, Button, MessageToast, Log
 		groupPress: function(){
 			this._filterOrGroupPress().open("group");
 		},
+		
 		handleConfirm: function(oEvent){
 			var aFilterItems = oEvent.getParameter("filterItems");
 			var aFilters = [];
 			aFilterItems.forEach(function(oItem) {
-				if(oItem.getKey()=="shiporder")
+				if(oItem.getKey() === "shiporder")
 				{
 					aFilters.push(new Filter("ShippedDate", FilterOperator.NE, null));
 				}
-				else if(oItem.getKey()=="shipment")
+				else if(oItem.getKey() === "shipment")
 				{
 					aFilters.push(new Filter("ShippedDate", FilterOperator.EQ, null));
 				}
 			});
 			this.filterState.aFilter = aFilters;
 			this._applySearch();
-			this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
-			this.byId("vsdFilterLabel").setText(oEvent.getParameters().filterString);
+			// set the infor bar, if reset, means the aFilters is null.
+			this.byId("FilterBar").setVisible(aFilters.length > 0);
+			this.byId("FilterLabel").setText(oEvent.getParameters().filterString);
 			
 			var aGroups = [], 
 				mParams = oEvent.getParameters(), 
@@ -253,29 +228,11 @@ Label, Text, TextArea, Button, MessageToast, Log
 			oTable.getBinding("items").sort(aGroups);
 		},
 	
-		onPress : function (oEvent) {
-			var oList = oEvent.getSource(),
-				bSelected = oEvent.getParameter("selected");
-
-			// skip navigation when deselecting an item in multi selection mode
-			if (!(oList.getMode() === "MultiSelect" && !bSelected)) {
-				// get the list item, either from the listItem parameter or from the event's source itself (will depend on the device-dependent mode).
-				this._showDetail(oEvent.getParameter("listItem") || oEvent.getSource());
-			}
-		},
-		/**
-		 * Shows the selected item on the detail page
-		 * On phones a additional history entry is created
-		 * @param {sap.m.ObjectListItem} oItem selected Item
-		 * @private
-		 */
-		_showDetail : function (oItem) {
-			var bReplace = !Device.system.phone;
-			// set the layout property of FCL control to show two columns
+		onPress: function(oEvent){
 			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
 			this.getRouter().navTo("detail", {
-				orderId : oItem.getBindingContext().getProperty("OrderID")
-			}, bReplace);
+				orderId : oEvent.getParameter("listItem").getBindingContext().getProperty("OrderID")
+			});
 		}
 
 		
