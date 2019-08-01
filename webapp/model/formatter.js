@@ -52,7 +52,7 @@ sap.ui.define([
 			var fTotal = iQuantity * fPrice;
 			return oCurrency.formatValue([parseFloat(fTotal).toFixed(2), "EUR"], "string");
 			
-		//	return numberUnit(fTotal);
+			//return this.numberUnit(fTotal);
 		}
 
 	};

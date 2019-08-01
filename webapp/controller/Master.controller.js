@@ -243,8 +243,9 @@ Label, Text, TextArea, Button, MessageToast, Log
 				vGroup = this.mGroupFunctions[mParams.groupItem.getKey()];
 				aGroups.push(new Sorter(sPath, bDescending, vGroup));
 				// apply the selected group settings
-				this._applyGroup(aGroups);
+				
 			}
+			this._applyGroup(aGroups);
 			
 	},
 		_applyGroup: function(aGroups){

@@ -11,7 +11,7 @@
 		id="detailPage"
 		busy="{detailView>/busy}"
 		busyIndicatorDelay="{detailView>/delay}">
-		<semantic:titleHeading>
+		<semantic:titleHeading id="objectHeader">
 			<Title
 				text="{
 						parts: ['i18n>OrderTitle','OrderID']
