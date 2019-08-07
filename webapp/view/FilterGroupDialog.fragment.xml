@@ -13,7 +13,7 @@
 		</filterItems>
 		<groupItems>
 			<ViewSettingsItem text="{i18n>groupItemCustomer}" key="CompanyName" />
-			<ViewSettingsItem text="{i18n>Group by Order Period}" key="OrderDate" />
+			<ViewSettingsItem text="{i18n>groupItemOrder}" key="OrderDate" />
 			<ViewSettingsItem text="{i18n>groupItemShip}" key="ShippedDate" />
 		</groupItems>
 	</ViewSettingsDialog>

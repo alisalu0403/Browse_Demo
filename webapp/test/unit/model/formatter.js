@@ -105,8 +105,8 @@ sap.ui.define([
 	
 	
 	// unit test of calculatePriceTotal
-	function calculatePriceTotalTestCase(assert, sQuantity, sPrice, fExpectedNumber){
-		var fNumber = formatter.calculatePriceTotal(sQuantity, sPrice);
+	function calculatePriceTotalTestCase(assert, iQuantity, fPrice, fExpectedNumber){
+		var fNumber = formatter.calculatePriceTotal(iQuantity, fPrice);
 		assert.strictEqual(fNumber, fExpectedNumber, "the calculation was correct");
 	}
 	

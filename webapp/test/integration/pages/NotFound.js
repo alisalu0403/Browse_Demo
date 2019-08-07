@@ -1,7 +1,7 @@
 sap.ui.define([
-	'sap/ui/test/Opa5',
-	'sap/ui/test/matchers/Properties',
-	'sap/ui/test/actions/EnterText'
+	"sap/ui/test/Opa5",
+	"sap/ui/test/matchers/Properties",
+	"sap/ui/test/actions/EnterText"
 ], function (Opa5, Properties, EnterText) {
 		"use strict";
 		var sViewName = "ResourceNotFound";

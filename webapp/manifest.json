@@ -112,6 +112,11 @@
 				"viewLevel": 1,
 				"controlAggregation": "midColumnPages"
 			},
+			"detailNotFound": {
+				"viewName": "DetailNotFound",
+				"viewId": "detailNotFound",
+				"controlAggregation": "midColumnPages"
+			},
 			"fileNotFound": {
 				"viewName": "ResourceNotFound",
 				"viewId": "fileNotFound",

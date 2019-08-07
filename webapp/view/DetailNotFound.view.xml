@@ -1,0 +1,13 @@
+<mvc:View
+	controllerName="sap.ui.demo.bulletinboard.controller.DetailNotFound"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+	<MessagePage
+		title="{i18n>detailNotFoundTitle}"
+		text="{i18n>detailNotFoundText}"
+		icon="sap-icon://product"
+		id="page">
+	</MessagePage>
+
+</mvc:View>

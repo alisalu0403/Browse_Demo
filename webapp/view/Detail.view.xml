@@ -42,7 +42,7 @@
 										path: 'detailView>/sTotalPrice',
 										formatter: '.formatter.numberUnit'
 									}"
-									unit="EUR"/>
+									unit="{i18n>detailUnit}"/>
 				 </l:VerticalLayout>
 			 </l:HorizontalLayout>
 		</semantic:headerContent>
@@ -88,7 +88,7 @@
 								</f:content>
 								<f:content>
 									<core:Title text="{i18n>processorPicture}"/>
-									<Image src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" height = "80px" />
+									<Image src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" height = "80px" tooltip="photo"/>
 								</f:content>
 							</f:SimpleForm>
 	               			
@@ -136,7 +136,7 @@
 											path: 'UnitPrice',
 											formatter: '.formatter.numberUnit'
 										}"
-										unit="EUR"/>
+										unit="{i18n>detailUnit}"/>
 								<ObjectAttribute
 										text="{Quantity}"/>
 								<ObjectNumber
@@ -146,7 +146,7 @@
 										{path: 'Quantity'}],
 										formatter: '.formatter.calculatePriceTotal'
 										}"
-										unit="EUR"/>
+										unit="{i18n>detailUnit}"/>
 							</cells>
 						</ColumnListItem>
 					</items>

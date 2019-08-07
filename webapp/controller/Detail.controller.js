@@ -24,21 +24,49 @@ sap.ui.define([
 			this.setModel(oViewModel, "detailView");
 		},
 
+	_onPostMatched : function (oEvent) {
+			var oArguments = oEvent.getParameter("arguments");
+			this._sObjectId = oArguments.orderId;
+			// Don't show two columns when in full screen mode
+			if (this.getModel("appView").getProperty("/layout") !== "MidColumnFullScreen") {
+				this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+			}
+			this.getModel().metadataLoaded().then( function() {
+				var sObjectPath = this.getModel().createKey("Orders", {
+					OrderID :  this._sObjectId
+				});
+				this._bindView("/" + sObjectPath);
+			}.bind(this));
+		},
 
-
-		_onPostMatched: function (oEvent) {
-			this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+		/**
+		 * Binds the view to the object path. Makes sure that detail view displays
+		 * a busy indicator while data for the corresponding element binding is loaded.
+		 * @function
+		 * @param {string} sObjectPath path to the object to be bound to the view.
+		 * @private
+		 */
+		_bindView : function (sObjectPath) {
+			// Set busy indicator during view binding
 			var oViewModel = this.getModel("detailView");
-			var sObjectId =  oEvent.getParameter("arguments").orderId;
+			var oDataModel = this.getModel();
+
+			// If the view was not bound yet its not busy, only if the binding requests data it is set to busy again
+			oViewModel.setProperty("/busy", false);
 
 			this.getView().bindElement({
-				path: "/Orders(" + sObjectId + ")",
+				path : sObjectPath,
 				parameters: {
 					expand: "Customer,Order_Details/Product,Employee"
 				},
 				events: {
-					dataRequested: function () {
-						this.getModel().metadataLoaded().then(function () {
+					change : this._onBindingChange.bind(this),
+					dataRequested : function () {
+						oDataModel.metadataLoaded().then(function () {
+							// Busy indicator on view should only be set if metadata is loaded,
+							// otherwise there may be two busy indications next to each other on the
+							// screen. This happens because route matched handler already calls '_bindView'
+							// while metadata is loaded.
 							oViewModel.setProperty("/busy", true);
 						});
 					},
@@ -48,6 +76,21 @@ sap.ui.define([
 				}
 			});
 		},
+
+		_onBindingChange : function () {
+			var oView = this.getView(),
+				oElementBinding = oView.getElementBinding();
+
+			// No data for the binding
+			if (!oElementBinding.getBoundContext()) {
+				this.getRouter().getTargets().display("detailNotFound");
+			//this.getRouter().navTo("detailNotFound");
+				return;
+			}
+
+			this.getModel("detailView").setProperty("/busy", false);
+		},
+
 		
 
 		onCloseDetailPress: function () {
@@ -115,7 +158,7 @@ sap.ui.define([
 		},
 		
 		onPhonePress: function(oEvent){
-			var telNum =oEvent.getSource().getBindingContext().getProperty("Employee/HomePhone"); 
+			var telNum = oEvent.getSource().getBindingContext().getProperty("Employee/HomePhone"); 
 			mobileLibrary.URLHelper.triggerTel(telNum);
 		}
 			

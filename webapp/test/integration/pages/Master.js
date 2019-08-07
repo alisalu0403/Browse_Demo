@@ -301,7 +301,7 @@ sap.ui.define([
 					    	 matchers: [
 					    	 	function(oList) {
 		                           var groupHeaderHidden = function (oElement) {
-		                           	if(oElement.getMetadata().getName()=== "sap.m.GroupHeaderListItem"){
+		                           	if(oElement.getMetadata().getName() === "sap.m.GroupHeaderListItem"){
 		                           		return false;
 		                           	} else
 		                           	{

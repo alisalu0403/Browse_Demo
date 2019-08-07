@@ -1,18 +1,18 @@
 sap.ui.define([
-		'sap/ui/test/Opa5'
+		"sap/ui/test/Opa5"
 	],
 	function (Opa5) {
 		"use strict";
 
 		function getFrameUrl(sHash, sUrlParameters) {
-			sHash = sHash || "";
+			var sHashTemp = sHash || "";
 			var sUrl = jQuery.sap.getResourcePath("sap/ui/demo/bulletinboard/app", ".html");
 
 			if (sUrlParameters) {
-				sUrlParameters = "?" + sUrlParameters;
+				var sUrlParametersTemp = "?" + sUrlParameters;
 			}
 
-			return sUrl + sUrlParameters + "#" + sHash;
+			return sUrl + sUrlParametersTemp + "#" + sHashTemp;
 		}
 
 		return Opa5.extend("sap.ui.demo.bulletinboard.test.integration.pages.Common", {
@@ -25,11 +25,11 @@ sap.ui.define([
 
 			iStartMyApp: function (oOptions) {
 				var sUrlParameters;
-				oOptions = oOptions || { delay: 0 };
+				var oOptionsTemp = oOptions || { delay: 0 };
 
-				sUrlParameters = "serverDelay=" + oOptions.delay;
+				sUrlParameters = "serverDelay=" + oOptionsTemp.delay;
 
-				this.iStartMyAppInAFrame(getFrameUrl(oOptions.hash, sUrlParameters));
+				this.iStartMyAppInAFrame(getFrameUrl(oOptionsTemp.hash, sUrlParameters));
 			},
 
 			iLookAtTheScreen: function () {

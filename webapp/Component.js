@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"./model/models"
-], function (UIComponent, Device, models) {
+	"./model/models",
+	"./controller/ErrorHandler"
+], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("sap.ui.demo.bulletinboard.Component", {
@@ -19,6 +20,7 @@ sap.ui.define([
 		 */
 		init : function () {
 
+            this._oErrorHandler = new ErrorHandler(this);
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
 
@@ -36,6 +38,7 @@ sap.ui.define([
 		 * @override
 		 */
 		destroy : function () {
+			this._oErrorHandler.destroy();
 			// call the base component's destroy function
 			UIComponent.prototype.destroy.apply(this, arguments);
 		},

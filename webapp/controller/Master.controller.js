@@ -205,9 +205,9 @@ sap.ui.define([
 				mParams = oEvent.getParameters(), 
 				sPath,
 				bDescending,
-				vGroup ;
+				vGroup;
 			if (mParams.groupItem) {
-				if(mParams.groupItem.getKey() ==="CompanyName")
+				if(mParams.groupItem.getKey() === "CompanyName")
 				{
 					sPath = "Customer/" + mParams.groupItem.getKey();
 				}else

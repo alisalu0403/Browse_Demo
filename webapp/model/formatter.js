@@ -4,14 +4,15 @@ sap.ui.define([
 
 	return {
 		deliveryState: function (oRequiredDate, oShippedDate) {
-			if(oShippedDate === null)
+			if (oShippedDate === null){
 				return "None";
+			}
 			
 			if(oRequiredDate < oShippedDate)
 			{
 				return "Error";
-			}
-			else if(oRequiredDate - oShippedDate > 24*60*60*1000*7)// threadshead is 7 days
+			} 
+			else if (oRequiredDate - oShippedDate > 24 * 60 * 60 * 1000 * 7)// threadshead is 7 days
 			{
 				return "Success";
 			}
@@ -23,13 +24,15 @@ sap.ui.define([
 		
 		deliveryText: function (oRequiredDate, oShippedDate) {
 			if(oShippedDate === null)
+			{	
 				return "None";
+			}
 			
 			if(oRequiredDate < oShippedDate)
 			{
 				return "Too late";
 			}
-			else if(oRequiredDate - oShippedDate > 24*60*60*1000*7)// threadshead is 7 days
+			else if(oRequiredDate - oShippedDate > 24 * 60 * 60 * 1000 * 7)// threadshead is 7 days
 			{
 				return "In time";
 			}

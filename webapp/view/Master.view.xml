@@ -12,7 +12,7 @@
 			<List
 				id="list"
 				width="auto"
-				class="sapUiResponsiveMargin"
+				class="sapFDynamicPageAlignContent"
 				items="{
 					path: '/Orders',
 					parameters: {expand: 'Customer'},
