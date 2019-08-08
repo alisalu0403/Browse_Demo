@@ -22,7 +22,34 @@ sap.ui.define([
 				});
 			this.getRouter().getRoute("detail").attachPatternMatched(this._onPostMatched, this);
 			this.setModel(oViewModel, "detailView");
+		
 		},
+		
+		
+		// _onPostMatched: function (oEvent) {
+		// 	this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+		
+			
+		// 	var oViewModel = this.getModel("detailView");
+		// 	var sObjectId =  oEvent.getParameter("arguments").orderId;
+
+		// 	this.getView().bindElement({
+		// 		path: "/Orders(" + sObjectId + ")",
+		// 		parameters: {
+		// 			expand: "Customer,Order_Details/Product,Employee"
+		// 		},
+		// 		events: {
+		// 			dataRequested: function () {
+		// 				this.getModel().metadataLoaded().then(function () {
+		// 					oViewModel.setProperty("/busy", true);
+		// 				});
+		// 			},
+		// 			dataReceived: function () {
+		// 				oViewModel.setProperty("/busy", false);
+		// 			}
+		// 		}
+		// 	});
+		// },
 
 	_onPostMatched : function (oEvent) {
 			var oArguments = oEvent.getParameter("arguments");
